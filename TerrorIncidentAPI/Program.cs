@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+
 namespace TerrorIncidentAPI
 {
     public class Program
@@ -7,9 +10,14 @@ namespace TerrorIncidentAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddDbContext<TerrorIncidentDbContext>(options => 
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -22,12 +30,8 @@ namespace TerrorIncidentAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }
