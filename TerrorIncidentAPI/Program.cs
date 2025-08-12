@@ -11,6 +11,18 @@ namespace TerrorIncidentAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200/")
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod()
+                                 .AllowCredentials();
+                    });
+            });
+
             builder.Services.AddDbContext<TerrorIncidentDbContext>(options => 
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -19,19 +31,20 @@ namespace TerrorIncidentAPI
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+
             builder.Services.AddScoped<CountryService>();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
             }
 
+            app.UseRouting();
             app.UseHttpsRedirection();
+            app.UseCors("AllowAllOrigins");
             app.UseAuthorization();
             app.MapControllers();
             app.Run();

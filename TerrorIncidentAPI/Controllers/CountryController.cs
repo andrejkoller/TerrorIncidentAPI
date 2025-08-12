@@ -3,6 +3,7 @@ using TerrorIncidentAPI.Services;
 
 namespace TerrorIncidentAPI.Controllers
 {
+    [ApiController]
     public class CountryController(CountryService service) : Controller
     {
         [HttpGet("api/countries")]
