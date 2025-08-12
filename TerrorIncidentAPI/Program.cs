@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using TerrorIncidentAPI.Services;
 
 namespace TerrorIncidentAPI
 {
@@ -18,6 +19,7 @@ namespace TerrorIncidentAPI
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
+            builder.Services.AddScoped<CountryService>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
