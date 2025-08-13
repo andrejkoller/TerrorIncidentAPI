@@ -12,7 +12,13 @@ namespace TerrorIncidentAPI.Controllers
             try
             {
                 var countries = await service.GetCountriesAsync();
-                return Ok(countries);
+
+                if (countries != null && countries.Count != 0)
+                {
+                    return Ok(countries);
+                }
+
+                return NotFound(new { Message = "No countries found." });
             }
             catch (Exception ex)
             {

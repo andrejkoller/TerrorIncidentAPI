@@ -43,8 +43,7 @@ namespace TerrorIncidentAPI.Services
                             LastUpdated = i.LastUpdated,
                             CountryId = i.CountryId,
                         }).ToList()
-                })
-                .ToListAsync();
+                }).ToListAsync();
 
             return countries;
         }
