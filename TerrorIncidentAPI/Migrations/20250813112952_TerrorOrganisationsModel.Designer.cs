@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TerrorIncidentAPI;
 
@@ -11,9 +12,11 @@ using TerrorIncidentAPI;
 namespace TerrorIncidentAPI.Migrations
 {
     [DbContext(typeof(TerrorIncidentDbContext))]
-    partial class TerrorIncidentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250813112952_TerrorOrganisationsModel")]
+    partial class TerrorOrganisationsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

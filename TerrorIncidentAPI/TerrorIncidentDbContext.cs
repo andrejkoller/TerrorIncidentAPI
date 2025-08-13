@@ -7,6 +7,7 @@ namespace TerrorIncidentAPI
     {
         public DbSet<Incident> Incidents { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<TerrorOrganisation> TerrorOrganisations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,17 @@ namespace TerrorIncidentAPI
                 .HasMaxLength(2);
             modelBuilder.Entity<Country>()
                 .Property(c => c.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<TerrorOrganisation>()
+                .HasKey(t => t.Id);
+            modelBuilder.Entity<TerrorOrganisation>()
+                .Property(t => t.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TerrorOrganisation>()
+                .Property(t => t.Name)
+                .IsRequired()
                 .HasMaxLength(100);
         }
     }

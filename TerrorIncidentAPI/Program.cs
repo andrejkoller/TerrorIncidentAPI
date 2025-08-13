@@ -34,6 +34,7 @@ namespace TerrorIncidentAPI
                 });
 
             builder.Services.AddScoped<CountryService>();
+            builder.Services.AddScoped<TerrorOrganisationService>();
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
