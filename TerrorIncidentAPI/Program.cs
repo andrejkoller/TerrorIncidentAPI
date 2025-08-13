@@ -10,13 +10,14 @@ namespace TerrorIncidentAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var allowAllOrigins = "AllowAllOrigins";
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins",
+                options.AddPolicy(allowAllOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200/")
+                        builder.WithOrigins("http://localhost:4200")
                                  .AllowAnyHeader()
                                  .AllowAnyMethod()
                                  .AllowCredentials();
@@ -44,7 +45,7 @@ namespace TerrorIncidentAPI
 
             app.UseRouting();
             app.UseHttpsRedirection();
-            app.UseCors("AllowAllOrigins");
+            app.UseCors(allowAllOrigins);
             app.UseAuthorization();
             app.MapControllers();
             app.Run();
